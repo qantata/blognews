@@ -40,6 +40,7 @@ export const Articles = () => {
   const articles = useStore(articlesSelector);
   const filter = useStore(filterSelector);
   const sorter = useStore(sorterSelector);
+  const loading = articles.length === 0;
 
   const filteredArticles = articles.filter(
     (a) => filter === ArticleFilter.ALL || a.type === ArticleFilter[filter]
@@ -59,11 +60,13 @@ export const Articles = () => {
         return 0;
     }
   });
+  // For skeleton loaders
+  const finalArticles = !loading ? sortedArticles : [...Array(12)];
 
   return (
     <Container>
-      {sortedArticles.map((article) => (
-        <ArticleBlock key={article.id} article={article} />
+      {finalArticles.map((article, index) => (
+        <ArticleBlock key={index} article={article} loading={loading} />
       ))}
     </Container>
   );

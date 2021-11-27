@@ -42,6 +42,8 @@ export const {
     colors: {
       active: "#001aff",
       darkGray: "#303030",
+      skeletonBg: "#ebebeb",
+      skeletonFg: "#f5f5f5",
     },
     space: layoutSizes,
     sizes: layoutSizes,

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { Article, ArticleFilter } from "../utils/articles";
 import { ArticleDate } from "./ArticleDate";
+import { Skeleton } from "./Skeleton";
 
 const Container = styled("div", {
   width: "100%",
@@ -45,46 +46,66 @@ const Texts = styled("div", {
 
 const Title = styled("p", {
   fontFamily: "$roboto500",
+  color: "$darkGray",
   fontSize: "$18",
   lineHeight: "$24",
-  color: "$darkGray",
 });
 
 const BlogAuthorText = styled("p", {
   fontFamily: "$roboto400",
-  fontSize: "$14",
   color: "$darkGray",
+  fontSize: "$14",
+  lineHeight: "$24",
 });
 
 type Props = {
   article: Article;
+  loading?: boolean;
 };
 
-export const ArticleBlock: React.FunctionComponent<Props> = ({ article }) => {
-  const isBlog = article.type === ArticleFilter[ArticleFilter.BLOGS];
+export const ArticleBlock: React.FunctionComponent<Props> = ({
+  article,
+  loading,
+}) => {
+  const isBlog =
+    !loading && article.type === ArticleFilter[ArticleFilter.BLOGS];
 
   return (
     <Container>
       <Thumbnail>
-        {article.image && <img src={article.image} />}
-        {!article.image && (
-          <ThumbnailMissing>
-            <ImageIcon />
-            No image available
-          </ThumbnailMissing>
+        {loading && <Skeleton />}
+        {!loading && (
+          <>
+            {article.image && <img src={article.image} />}
+            {!article.image && (
+              <ThumbnailMissing>
+                <ImageIcon />
+                No image available
+              </ThumbnailMissing>
+            )}
+          </>
         )}
       </Thumbnail>
 
       <Texts>
-        <Link to={`/articles/${article.id}`}>
-          <Title>{article.title}</Title>
-        </Link>
-
-        {isBlog && (
-          <BlogAuthorText>BLOG | {article.author.name}</BlogAuthorText>
+        {loading && (
+          <Title>
+            <Skeleton />
+          </Title>
+        )}
+        {!loading && (
+          <Link to={`/articles/${article.id}`}>
+            <Title>{article.title}</Title>
+          </Link>
         )}
 
-        <ArticleDate article={article} />
+        {isBlog && (
+          <BlogAuthorText>
+            {loading ? <Skeleton /> : `BLOG | ${article.author.name}`}
+          </BlogAuthorText>
+        )}
+
+        <ArticleDate article={article} loading={loading} />
       </Texts>
     </Container>
   );

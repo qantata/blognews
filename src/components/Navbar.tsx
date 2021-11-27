@@ -13,6 +13,7 @@ const Container = styled("nav", {
   display: "flex",
   alignItems: "center",
   position: "fixed",
+  zIndex: "10",
   top: "0",
   backgroundColor: "#fff",
 });
