@@ -31,6 +31,16 @@ const responseToAppType: { [key: string]: string } = {
   blog: ArticleFilter[ArticleFilter.BLOGS],
 };
 
+// To simulate a request being sent to another server
+const fakeOfflineRequestDelay = () => {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+      // 1-4 seconds
+    }, Math.random() * 3000 + 1);
+  });
+};
+
 export const fetchArticles = async (): Promise<Article[]> => {
   // The "views" value is only used in the app, it's not available in the response
   let articles: Omit<Article, "views">[] = [];
@@ -54,6 +64,8 @@ export const fetchArticles = async (): Promise<Article[]> => {
      */
     try {
       const { articles: offlineArticles } = await import("./articles-data");
+      await fakeOfflineRequestDelay();
+
       articles = offlineArticles.articles;
     } catch (err) {
       console.error("No local backup of article data available");
