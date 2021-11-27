@@ -90,11 +90,13 @@ export const Navbar = () => {
         </Items>
       </ContentContainer>
 
-      {isMenuOpen && windowWidth < parseInt(minNonMobileWidth) && (
-        <MobileMenuContainer>
-          <MobileMenu links={links} onClose={() => setIsMenuOpen(false)} />
-        </MobileMenuContainer>
-      )}
+      <MobileMenuContainer>
+        <MobileMenu
+          links={links}
+          isOpen={isMenuOpen && windowWidth < parseInt(minNonMobileWidth)}
+          onClose={() => setIsMenuOpen(false)}
+        />
+      </MobileMenuContainer>
     </Container>
   );
 };
