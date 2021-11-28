@@ -4,11 +4,11 @@ export const FilterSorterButton = styled("button", {
   textTransform: "uppercase",
   cursor: "pointer",
   color: "$darkGray",
+  backgroundColor: "transparent",
 
   "&:hover": {
     color: "$active",
     borderColor: "$active",
-    backgroundColor: "inherit",
   },
 
   variants: {
