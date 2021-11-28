@@ -31,20 +31,7 @@ const responseToAppType: { [key: string]: string } = {
   blog: ArticleFilter[ArticleFilter.BLOGS],
 };
 
-// To simulate a request being sent to another server
-const fakeOfflineRequestDelay = () => {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-      // 1-4 seconds
-    }, Math.random() * 3000 + 1);
-  });
-};
-
 export const fetchArticles = async (): Promise<Article[]> => {
-  // The "views" value is only used in the app, it's not available in the response
-  let articles: Omit<Article, "views">[] = [];
-
   try {
     const result = await axios.get(
       "https://frontend-test-task.free.beeceptor.com/articles"
@@ -54,32 +41,17 @@ export const fetchArticles = async (): Promise<Article[]> => {
       throw new Error("API response doesn't have articles");
     }
 
-    articles = result.data.articles;
-  } catch (err) {
-    console.error("Couldn't fetch articles:", err);
+    // The "views" value is only used in the app, it's not available in the response
+    const articles: Omit<Article, "views">[] = result.data.articles;
 
-    /*
-     * The API has a request limit of 50/day
-     * so try to load an offline backup (mostly meant for development)
-     */
-    try {
-      const { articles: offlineArticles } = await import("./articles-data");
-      await fakeOfflineRequestDelay();
-
-      articles = offlineArticles.articles;
-    } catch (err) {
-      console.error("No local backup of article data available");
-    }
-  }
-
-  if (articles.length) {
-    // Convert the article type to the types that we use in the app
+    // Transform articles to the type that we use in the app
     return articles.map((a) => ({
       ...a,
       type: responseToAppType[a.type],
       views: 0,
     }));
+  } catch (err) {
+    console.error("Couldn't fetch articles:", err);
+    return [];
   }
-
-  return [];
 };
