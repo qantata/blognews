@@ -113,7 +113,7 @@ const ArticlePage = () => {
       <Content>
         {article.image && (
           <Image>
-            <img src={article.image} />
+            <img src={article.image} alt="Article image" />
           </Image>
         )}
 

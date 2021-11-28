@@ -76,7 +76,9 @@ export const ArticleBlock: React.FunctionComponent<Props> = ({
         {loading && <Skeleton />}
         {!loading && (
           <>
-            {article.image && <img src={article.image} />}
+            {article.image && (
+              <img src={article.image} alt="Article thumbnail" />
+            )}
             {!article.image && (
               <ThumbnailMissing>
                 <ImageIcon />

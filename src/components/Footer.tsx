@@ -80,22 +80,22 @@ export class Footer extends React.Component {
 
             <Icons>
               <Icon>
-                <img src="/images/youtube.png" />
+                <img src="/images/youtube.png" alt="YouTube icon" />
               </Icon>
               <Icon>
-                <img src="/images/facebook.png" />
+                <img src="/images/facebook.png" alt="Facebook icon" />
               </Icon>
               <Icon>
-                <img src="/images/twitter.png" />
+                <img src="/images/twitter.png" alt="Twitter icon" />
               </Icon>
               <Icon>
-                <img src="/images/linkedin.png" />
+                <img src="/images/linkedin.png" alt="LinkedIn icon" />
               </Icon>
               <Icon>
-                <img src="/images/instagram.png" />
+                <img src="/images/instagram.png" alt="Instagram icon" />
               </Icon>
               <Icon>
-                <img src="/images/pinterest.png" />
+                <img src="/images/pinterest.png" alt="Pinterest icon" />
               </Icon>
             </Icons>
           </Info>
