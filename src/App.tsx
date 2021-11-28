@@ -36,18 +36,22 @@ const globalStyles = globalCss({
     {
       fontFamily: "RobotoMono400",
       src: "url(/fonts/Roboto_Mono/RobotoMono-Regular.ttf)",
+      fontDisplay: "swap",
     },
     {
       fontFamily: "RobotoMono500",
       src: "url(/fonts/Roboto_Mono/RobotoMono-Medium.ttf)",
+      fontDisplay: "swap",
     },
     {
       fontFamily: "Roboto400",
       src: "url(/fonts/Roboto/Roboto-Regular.ttf)",
+      fontDisplay: "swap",
     },
     {
       fontFamily: "Roboto500",
       src: "url(/fonts/Roboto/Roboto-Medium.ttf)",
+      fontDisplay: "swap",
     },
   ],
 });
